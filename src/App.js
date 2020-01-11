@@ -4,7 +4,7 @@ import './App.css';
 import VideoContainer from './VideoContainer'
 import Pagination from './Pagination'
 
-const API_KEY = 'AIzaSyC2Or6Rjl49pGpn-OkAZMBcxIeHKU8eLSg';
+const API_KEY = process.env.API_KEY;
 const channelID = 'UCvO6uJUVJQ6SrATfsWR5_aA';
 const result = 50;
 
