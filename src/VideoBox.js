@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card } from 'react-bootstrap'
 
 const VideoBox = (video) => {
 
-console.log(video.video.id.videoId);
+// console.log(video.video.id.videoId);
     return (
       <Card style={{ width: '20rem' }}>
     <Card.Img variant="top" src={video.video.snippet.thumbnails.medium.url} />
@@ -20,4 +20,5 @@ console.log(video.video.id.videoId);
 export default VideoBox;
 
 
+// iframe tag to video videos, instead of thumbnails
 // <iframe width="460" height="215" src={link} frameBorder="0" allowFullScreen></iframe>

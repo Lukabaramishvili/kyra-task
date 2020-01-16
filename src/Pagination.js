@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Pagination = ({ videosPerPage, totalVideos, paginate }) => {
   const pageNumbers = [];
