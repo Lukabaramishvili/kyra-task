@@ -5,6 +5,9 @@ import LineChart from './LineChart'
 import VideoContainer from './VideoContainer'
 import Pagination from './Pagination'
 import moment from 'moment';
+import { extendMoment } from 'moment-range'
+
+const Moment = extendMoment(moment);
 
 const API_KEY = 'AIzaSyAfashX9UUBOmb3E_Mk2HMzRMlxRdmqEJo';
 const channelID = 'UCvO6uJUVJQ6SrATfsWR5_aA';
@@ -43,14 +46,20 @@ const App = () => {
        const now = moment()
        const videoDate = moment(video.snippet.publishedAt).format('YYYY-MM-DD')
        const startDate = moment(now).subtract(18, 'months')
+       const interval = moment.duration(1, 'weeks');
 
-       const isBetween = moment(videoDate).isBetween(startDate, now);
 
-       if (isBetween) {
-         return video
-       }
-     })
-    // console.log(validVideos);
+        let weekArr = [];
+        while (startDate.isBefore(now, 'weeks')) {
+          weekArr.push({'start': startDate.format('YYYY-MM-DD'), 'end': startDate.add(1, 'weeks').format('YYYY-MM-DD')});
+          startDate.add(1, 'weeks');
+          }
+          weekArr.filter(week => {
+            console.log(week);
+          })
+      })
+      // console.log(validVideos);
+
 
 
     return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { Chart } from "react-google-charts";
 import moment from 'moment';
 
-const LineChart = ({validVideos}) => {
+const LineChart = (validVideos) => {
   // const now = moment()
   // const videoDate = moment(video.snippet.publishedAt).format('YYYY-MM-DD')
   // const startDate = moment(now).subtract(18, 'months')
@@ -14,20 +14,8 @@ const LineChart = ({validVideos}) => {
   // const firstWeek = moment(startDate).day(0).format('YYYY-MM-DD')
   // console.log(firstWeek);
 
-  // return boolean if the published date is in between 18 month period
-  // const isBetween = moment(videoDate).isBetween(startDate, now);
-
-  // const validDate = () => {
-  //   let newArr = [];
-  //   if (isBetween) {
-  //     newArr = [...newArr, video]
-  //   }
-  //   return newArr
-  // }
-  // console.log(validDate());
-
   //if video isBetween, count filtered data ??
-  console.log(validVideos.length);
+  // console.log(validVideos);
 
   return (
     <div>
