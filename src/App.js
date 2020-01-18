@@ -50,13 +50,24 @@ const App = () => {
 
 
         let weekArr = [];
-        while (startDate.isBefore(now, 'weeks')) {
-          weekArr.push({'start': startDate.format('YYYY-MM-DD'), 'end': startDate.add(1, 'weeks').format('YYYY-MM-DD')});
+        let weekNumber = 1;
+        while (startDate.isSameOrBefore(now, 'weeks')) {
+          weekArr.push({'week': weekNumber,'start': startDate.format('YYYY-MM-DD'), 'end': startDate.add(1, 'weeks').format('YYYY-MM-DD')});
           startDate.add(1, 'weeks');
+          weekNumber ++;
+          // console.log(weekArr);
           }
-          weekArr.filter(week => {
-            console.log(week);
+          const finalArr = weekArr.filter(week => {
+            let videoCountArr = [];
+            const start = week.start
+            const end = week.end
+            if (moment(videoDate).isBetween(start,end) || moment(videoDate).isSame(start) || moment(videoDate).isSame(end)) {
+              videoCountArr.push(videoDate)
+            }
+            // console.log(videoCountArr);
+            return videoCountArr.length
           })
+          return finalArr
       })
       // console.log(validVideos);
 
