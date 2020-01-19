@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chart } from "react-google-charts";
-import moment from 'moment';
+// import moment from 'moment';
 
 const LineChart = (validVideos) => {
 
@@ -8,8 +8,8 @@ const LineChart = (validVideos) => {
   const numberOfVideosArr = validVideos.validVideos.filter(valid => {
     return valid.length
   })
-  console.log(numberOfVideosArr.length);
 
+  console.log(numberOfVideosArr);
 
   return (
     <div>

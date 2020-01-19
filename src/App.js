@@ -5,9 +5,9 @@ import LineChart from './LineChart'
 import VideoContainer from './VideoContainer'
 import Pagination from './Pagination'
 import moment from 'moment';
-import { extendMoment } from 'moment-range'
+// import { extendMoment } from 'moment-range'
 
-const Moment = extendMoment(moment);
+// const Moment = extendMoment(moment);
 
 const API_KEY = 'AIzaSyAfashX9UUBOmb3E_Mk2HMzRMlxRdmqEJo';
 const channelID = 'UCvO6uJUVJQ6SrATfsWR5_aA';
@@ -46,29 +46,28 @@ const App = () => {
        const now = moment()
        const videoDate = moment(video.snippet.publishedAt).format('YYYY-MM-DD')
        const startDate = moment(now).subtract(18, 'months')
-       const interval = moment.duration(1, 'weeks');
-
+       // const interval = moment.duration(1, 'weeks');
 
         let weekArr = [];
         let weekNumber = 1;
-        while (startDate.isSameOrBefore(now, 'weeks')) {
+        while (startDate.isSameOrBefore(now, 'week')) {
           weekArr.push({'week': weekNumber,'start': startDate.format('YYYY-MM-DD'), 'end': startDate.add(1, 'weeks').format('YYYY-MM-DD')});
-          startDate.add(1, 'weeks');
+          startDate.add(1, 'days');
           weekNumber ++;
           // console.log(weekArr);
           }
           const finalArr = weekArr.filter(week => {
-            let videoCountArr = [];
-            const start = week.start
-            const end = week.end
-            if (moment(videoDate).isBetween(start,end) || moment(videoDate).isSame(start) || moment(videoDate).isSame(end)) {
-              videoCountArr.push(videoDate)
-            }
-            // console.log(videoCountArr);
-            return videoCountArr.length
-          })
-          return finalArr
-      })
+          let videoCountArr = [];
+          const start = week.start
+          const end = week.end
+          if (moment(videoDate).isBetween(start,end) || moment(videoDate).isSame(start) || moment(videoDate).isSame(end)) {
+            videoCountArr.push(videoDate)
+          }
+          // console.log(videoCountArr);
+          return videoCountArr.length
+        })
+        return finalArr
+    })
       // console.log(validVideos);
 
 
