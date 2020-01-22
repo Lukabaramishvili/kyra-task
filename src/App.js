@@ -11,7 +11,7 @@ import moment from 'moment';
 
 const API_KEY = 'AIzaSyAfashX9UUBOmb3E_Mk2HMzRMlxRdmqEJo';
 const channelID = 'UCvO6uJUVJQ6SrATfsWR5_aA';
-const result = 3;
+const result = 50;
 
 const URL = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${channelID}&part=snippet,id&order=date&maxResults=${result}`
 
@@ -20,18 +20,20 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [videosPerPage] = useState(10);
+  const [weeksArray, setWeeksArray] = useState([]);
 
   useEffect(() => {
-    const fetchVideos = async () => {
-      setLoading(true);
-      const res = await axios.get(URL);
-      setVideos(res.data.items);
-      setLoading(false);
-      console.log(res.data);
-    }
-
     fetchVideos();
   }, []);
+
+    const fetchVideos = async () => {
+      // setLoading(true);
+      const res = await axios.get(URL);
+      setVideos(res.data.items);
+      // setLoading(false);
+      getWeeks()
+      console.log(res.data);
+    }
 
     //Get current videos
     const indexOfLastVideo = currentPage * videosPerPage;
@@ -41,41 +43,44 @@ const App = () => {
     //This changes page
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    // return valid array of videos that were uploaded over the last 18 months
-     const validVideos = videos.map(video => {
-       const now = moment()
-       const videoDate = moment(video.snippet.publishedAt).format('YYYY-MM-DD')
-       const startDate = moment(now).subtract(18, 'months')
-       // const interval = moment.duration(1, 'weeks');
+    //Generate Weeks
+    const getWeeks = () => {
+      const endDate = moment()
+      const startDate = moment(endDate).subtract(18, 'months')
 
-        let weekArr = [];
-        let weekNumber = 1;
-        while (startDate.isSameOrBefore(now, 'week')) {
-          weekArr.push({'week': weekNumber,'start': startDate.format('YYYY-MM-DD'), 'end': startDate.add(1, 'weeks').format('YYYY-MM-DD')});
-          startDate.add(1, 'days');
-          weekNumber ++;
-          // console.log(weekArr);
-          }
-          const finalArr = weekArr.filter(week => {
-          let videoCountArr = [];
-          const start = week.start
-          const end = week.end
-          if (moment(videoDate).isBetween(start,end) || moment(videoDate).isSame(start) || moment(videoDate).isSame(end)) {
-            videoCountArr.push(videoDate)
-          }
-          // console.log(videoCountArr);
-          return videoCountArr.length
-        })
-        return finalArr
-    })
-      // console.log(validVideos);
+       let weekArr = [];
+       let weekNumber = 1;
+       let numberOfVideos = 0;
+       while (startDate.isSameOrBefore(endDate, 'week')) {
+         weekArr.push({'week': weekNumber,'start': startDate.format('YYYY-MM-DD'), 'end': startDate.add(1, 'weeks').format('YYYY-MM-DD'), 'numberOfVideos': numberOfVideos});
+         startDate.add(1, 'days');
+         weekNumber ++;
+         }
+       setWeeksArray(weekArr)
+    }
 
+    //Compare if Week Range contains VideoDate and increment numberOfVideos in weeksArray
+     //      let finalArr = [];
+     //      const validVideos = videos.map(video => {
+     //      const videoDate = moment(video.snippet.publishedAt).format('YYYY-MM-DD')
+     //
+     //
+     //       weeksArray.map(week => {
+     //       const start = week.start
+     //       const end = week.end
+     //       if (moment(videoDate).isBetween(start,end) || moment(videoDate).isSame(start) || moment(videoDate).isSame(end)) {
+     //         week.numberOfVideos ++;
+     //       }
+     //       return weeksArray
+     //     })
+     //     return finalArr.push(weeksArray)
+     // })
 
 
     return (
       <div className="container mt-5">
         <h1 className="text-primary mb-3"> Kyra TV </h1>
-        <LineChart validVideos={validVideos}/>
+        <LineChart weeksArray={weeksArray}/>
         <VideoContainer videos={currentVideos} loading={loading}/>
         <Pagination videosPerPage={videosPerPage} totalVideos={videos.length} paginate={paginate}/>
       </div>
