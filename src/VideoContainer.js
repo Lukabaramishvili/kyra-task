@@ -7,8 +7,6 @@ const VideoContainer = ({ videos, loading}) => {
     return <h2>Loading...</h2>
   }
 
-  // console.log(videos);
-
     return <ul className="list-group mb-4">
       {videos.map(video => (
         <VideoBox key={video.id} video={video} />

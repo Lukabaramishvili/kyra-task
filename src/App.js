@@ -5,9 +5,7 @@ import LineChart from './LineChart'
 import VideoContainer from './VideoContainer'
 import Pagination from './Pagination'
 import moment from 'moment';
-// import { extendMoment } from 'moment-range'
 
-// const Moment = extendMoment(moment);
 
 const API_KEY = 'AIzaSyAfashX9UUBOmb3E_Mk2HMzRMlxRdmqEJo';
 const channelID = 'UCvO6uJUVJQ6SrATfsWR5_aA';
@@ -27,12 +25,11 @@ const App = () => {
   }, []);
 
     const fetchVideos = async () => {
-      // setLoading(true);
+      setLoading(true);
       const res = await axios.get(URL);
       setVideos(res.data.items);
-      // setLoading(false);
+      setLoading(false);
       getWeeks()
-      console.log(res.data);
     }
 
     //Get current videos
@@ -60,21 +57,20 @@ const App = () => {
     }
 
     //Compare if Week Range contains VideoDate and increment numberOfVideos in weeksArray
-     //      let finalArr = [];
-     //      const validVideos = videos.map(video => {
-     //      const videoDate = moment(video.snippet.publishedAt).format('YYYY-MM-DD')
-     //
-     //
-     //       weeksArray.map(week => {
-     //       const start = week.start
-     //       const end = week.end
-     //       if (moment(videoDate).isBetween(start,end) || moment(videoDate).isSame(start) || moment(videoDate).isSame(end)) {
-     //         week.numberOfVideos ++;
-     //       }
-     //       return weeksArray
-     //     })
-     //     return finalArr.push(weeksArray)
-     // })
+          let finalArr = [];
+          const validVideos = videos.forEach(video => {
+          const videoDate = moment(video.snippet.publishedAt).format('YYYY-MM-DD')
+
+           weeksArray.map(week => {
+           const start = week.start
+           const end = week.end
+           if (moment(videoDate).isBetween(start,end) || moment(videoDate).isSame(start) || moment(videoDate).isSame(end)) {
+             week.numberOfVideos ++;
+           }
+           return weeksArray
+         })
+         return weeksArray
+        })
 
 
     return (
