@@ -6,8 +6,7 @@ import VideoContainer from './VideoContainer'
 import Pagination from './Pagination'
 import moment from 'moment';
 
-
-const API_KEY = 'AIzaSyAfashX9UUBOmb3E_Mk2HMzRMlxRdmqEJo';
+const API_KEY = process.env.REACT_APP_API_KEY;
 const channelID = 'UCvO6uJUVJQ6SrATfsWR5_aA';
 const result = 50;
 
