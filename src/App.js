@@ -8,7 +8,7 @@ import moment from 'moment';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 const channelID = 'UCvO6uJUVJQ6SrATfsWR5_aA';
-const result = 50;
+const result = 10;
 
 const URL = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${channelID}&part=snippet,id&order=date&maxResults=${result}`
 
