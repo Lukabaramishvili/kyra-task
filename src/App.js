@@ -18,7 +18,7 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [videosPerPage] = useState(10);
   const [weeksArray, setWeeksArray] = useState([]);
-
+  // check if 
   useEffect(() => {
     fetchVideos();
   }, []);
