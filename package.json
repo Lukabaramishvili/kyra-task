@@ -19,7 +19,7 @@
     "react-google-charts": "^3.0.15",
     "react-moment": "^0.9.7",
     "react-scripts": "3.3.0",
-    "simple-git": "^2.4.0"
+    "simple-git": "^3.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
